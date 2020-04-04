@@ -127,10 +127,13 @@ li a:hover:not(.active) {
   display: block;
   
 }
+form {
+    display: inline;
+}
 </style>
 </head>
 
-
+<?php require 'connect.php';?>
 <body>
 
 <ul>
@@ -140,6 +143,13 @@ li a:hover:not(.active) {
       <i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-content">
+      <?php
+      foreach($pdo->query('select croom_id from classroom') as $row)
+      {
+          echo '<a href="status.php?class='.$row['croom_id'].'">'.$row['croom_id'].'</a>';
+      }
+      ?>
+      <!--
       <a href="status.php?class=<?php echo "EC1005" ?>">EC1005</a>
       <a href="#">EC1006</a>
       <a href="#">EC1014-2</a>
@@ -157,6 +167,7 @@ li a:hover:not(.active) {
       <a href="#">EC9032-1</a>
       <a href="#">EC9032-2</a>
       <a href="#">EC9013</a>
+      -->
     </div>
   </div> 
   <li><a class="active" href="Request.php">Request</a></li>
@@ -257,7 +268,12 @@ echo '</table>'
         echo $item."\t";
     }
 ?>
-<p><input type="submit" value="申請送出"></p>
+<br><br>
+
+<input type="submit" value="申請送出">
+</form>
+<form>
+<button onclick="window.print()">列印申請單</button>
 </form>
 <!-- <br><br> -->
 

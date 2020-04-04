@@ -131,6 +131,13 @@ li a:hover:not(.active) {
       <i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-content">
+    <?php
+      foreach($pdo->query('select croom_id from classroom') as $row)
+      {
+          echo '<a href="status.php?class='.$row['croom_id'].'">'.$row['croom_id'].'</a>';
+      }
+    ?>
+<!--    
       <a href="status.php?class=<?php echo "EC1005" ?>">EC1005</a>
       <a href="#">EC1006</a>
       <a href="#">EC1014-2</a>
@@ -148,6 +155,7 @@ li a:hover:not(.active) {
       <a href="#">EC9032-1</a>
       <a href="#">EC9032-2</a>
       <a href="#">EC9013</a>
+-->      
     </div>
   </div> 
   <li><a href="Request.php">Request</a></li>
@@ -248,6 +256,7 @@ for($i=0;$i<7;$i++)
     }
     // echo implode($d);
     $pair = array();
+    $pname = array();
     $cnt = 0;
     foreach($sql->fetchAll() as $row)
     {
@@ -304,6 +313,7 @@ for($i=0;$i<7;$i++)
                 $sc[$i] = $rp[$sc[$i]];
             }    
             $pair[$cnt] = array($sc[$i],$w);
+            $pname[$cnt] = $row['name'];
             $cnt++;
         }
     }
@@ -364,7 +374,9 @@ for($i=0;$i<7;$i++)
              //echo implode($cp); 
              if(in_array($cp,$pair))
              {
-                 echo implode($cp);
+                 //echo implode($cp);
+                 $key = array_search($cp,$pair);
+                 echo $pname[$key];
                  //echo 'find it!';
              }
              /*

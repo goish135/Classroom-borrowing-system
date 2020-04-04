@@ -140,7 +140,7 @@ li a:hover:not(.active) {
       <i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-content">
-      <a href="#">EC1005</a>
+      <a href="status.php?class=<?php echo "EC1005" ?>">EC1005</a>
       <a href="#">EC1006</a>
       <a href="#">EC1014-2</a>
       <a href="#">EC2013-1</a>

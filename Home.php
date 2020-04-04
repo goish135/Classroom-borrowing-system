@@ -172,6 +172,12 @@ $last_week = date('Y-m-d',strtotime("$week_start -7 days"));
       <i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-content">
+    <?php
+      foreach($pdo->query('select croom_id from classroom') as $row)
+      {
+          echo '<a href="status.php?class='.$row['croom_id'].'">'.$row['croom_id'].'</a>';
+      }
+      /*
       <a href="status.php?class=<?php echo "EC1005" ?>">EC1005</a>
       <a href="#">EC1006</a>
       <a href="#">EC1014-2</a>
@@ -189,6 +195,8 @@ $last_week = date('Y-m-d',strtotime("$week_start -7 days"));
       <a href="#">EC9032-1</a>
       <a href="#">EC9032-2</a>
       <a href="#">EC9013</a>
+      */
+    ?>  
     </div>
   </div> 
   <li><a href="Request.php">Request</a></li>

@@ -131,6 +131,36 @@ form {
     display: inline;
 }
 </style>
+<script>
+function showdv(str)
+{
+	if (str.length==0)
+	{ 
+		document.getElementById("dvlist").innerHTML="先選擇教室";
+		return;
+	}    
+
+	if (window.XMLHttpRequest)
+	{
+		// IE7+, Firefox, Chrome, Opera, Safari 浏览器执行的代码
+		xmlhttp=new XMLHttpRequest();
+	}
+	else
+	{	
+		//IE6, IE5 浏览器执行的代码
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange=function()
+	{
+		if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		{
+			document.getElementById("dvlist").innerHTML=xmlhttp.responseText;
+		}
+	}
+	xmlhttp.open("GET","getdv.php?q="+str,true);
+	xmlhttp.send();
+}
+</script>
 </head>
 
 <?php require 'connect.php';?>
@@ -144,6 +174,7 @@ form {
     </button>
     <div class="dropdown-content">
       <?php
+      
       foreach($pdo->query('select croom_id from classroom') as $row)
       {
           echo '<a href="status.php?class='.$row['croom_id'].'">'.$row['croom_id'].'</a>';
@@ -180,32 +211,40 @@ form {
 <p>借用人: <input type="text" name="Name"></p>
 <p>
 教室編號: 
-<select name="classID">
+<select name="classID" onchange="showdv(this.value)">
 <?php
-$classID = 
-[
-    'EC1005',
-    'EC1006',
-    'EC1014-2',
-    'EC2013-1',
-    'EC2013-2',
-    'EC2015',
-    'EC3015',
-    'EC3016',
-    'EC5000',
-    'EC5007',
-    'EC5012',
-    'EC5025',
-    'EC5026',
-    'EC9014',
-    'EC9032-1',
-    'EC9032-2',
-    'EC9013'
-]; 
-foreach($classID as $item)
-{
-    echo '<option value="',$item,'">',$item,'</option>';
-}
+      echo '<option value="">請選擇</option>';
+      foreach($pdo->query('select croom_id from classroom') as $row)
+      {
+          //echo '<a href="status.php?class='.$row['croom_id'].'">'.$row['croom_id'].'</a>';
+          echo '<option value="',$row['croom_id'],'">',$row['croom_id'],'</option>';
+      }
+        /*    
+        $classID = 
+        [
+            'EC1005',
+            'EC1006',
+            'EC1014-2',
+            'EC2013-1',
+            'EC2013-2',
+            'EC2015',
+            'EC3015',
+            'EC3016',
+            'EC5000',
+            'EC5007',
+            'EC5012',
+            'EC5025',
+            'EC5026',
+            'EC9014',
+            'EC9032-1',
+            'EC9032-2',
+            'EC9013'
+        ]; 
+        foreach($classID as $item)
+        {
+            echo '<option value="',$item,'">',$item,'</option>';
+        }
+        */
 ?>
 </select>
 </p>
@@ -260,14 +299,20 @@ echo '</table>'
 <textarea name="purpose" rows="5" cols="30">
 </textarea>
 <p>借用設備:</p>
+
+
 <?php
+    /*
     $device = ['筆電',"滑鼠","充電器","投影機","麥克風","音箱"];
     foreach($device as $item)
     {
         echo '<input type="checkbox" name="device[]" value="',$item,'">';
         echo $item."\t";
     }
+    */
 ?>
+
+<div id="dvlist" >先選擇教室</div>
 <br><br>
 
 <input type="submit" value="申請送出">

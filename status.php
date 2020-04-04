@@ -1,5 +1,30 @@
 <?php require 'connect.php';?>
 <style>
+a {
+  text-decoration: none;
+  display: inline-block;
+  padding: 8px 16px;https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_next_prev#
+}
+
+a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.previous {
+  background-color: #FF8800;
+  color: white;
+}
+
+.next {
+  background-color: #FF8800;
+  color: white;
+}
+
+.round {
+  border-radius: 50%;
+}
+
 #customers {
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   border-collapse: collapse;
@@ -25,111 +50,209 @@
 }
 </style>
 <?php
-echo $_REQUEST['date'],' ',$_REQUEST['class'].'<br>';
-//$year = date("Y");
-$sql = $pdo->prepare('select * from apply where date between ? and ? and class=?');
-$tmp = $_REQUEST['date'];
-$end=date('Y-m-d',strtotime("$tmp +6 days"));
-$sql->execute([$_REQUEST['date'],$end,$_REQUEST['class']]);
-$d = array();
+if(isset($_REQUEST['date']))
+{
+    //echo $_REQUEST['date'];
+    $week_start = $_REQUEST['date'];
+    //echo 'test';
+    $week_end=date('Y-m-d',strtotime("$week_start +6 days"));
+    $next_week = date('Y-m-d',strtotime("$week_end +1 days"));
+    $last_week = date('Y-m-d',strtotime("$week_start -7 days"));
+}
+else
+{
+    $cs = $_REQUEST['class'];
+    date_default_timezone_set('Asia/Taipei');
+    //當前日期
+    $sdefaultDate = date("Y-m-d");
+    // echo $sdefaultDate;
+    // echo $sdefaultDate.'<br>';
+    
+    
+    //$first =1 表示每週星期一为開始日期 0表示每週日为開始日期
+    $first=1;
+     
+    //获取当前周的第几天 周日是 0 周一到周六是 1 - 6
+    $w=date('w',strtotime($sdefaultDate));
+
+     
+    //取本周开始日期，如果$w是0，則表示周日，減去 6 天
+    $week_start=date('Y-m-d',strtotime("$sdefaultDate -".($w ? $w - $first : 6).' days')); 
+    $week_end=date('Y-m-d',strtotime("$week_start +6 days"));
+    $next_week = date('Y-m-d',strtotime("$week_end +1 days"));
+    $last_week = date('Y-m-d',strtotime("$week_start -7 days"));    
+}
+?>
+<a href="status.php?date=<?php echo $last_week; ?>&class=<?php echo $_REQUEST['class']; ?>" class='previous'>&laquo; Previous</a>
+<a href="status.php?date=<?php echo $next_week; ?>&class=<?php echo $_REQUEST['class']; ?>" class='next'>Next &raquo;</a>
+<br> <br>
+<?php
+$w1 = $week_start;
+$w2 = date('m-d',strtotime("$w1"));
+
+$wk = array();
 for($i=0;$i<7;$i++)
 {
-    $d[$i] = $tmp;
-    $tmp = date('Y-m-d',strtotime("$tmp +1 days"));
+    $wk[$i] = $w2;
+    $w1 = date('Y-m-d',strtotime("$w1 +1 days"));
+    $w2 = date('m-d',strtotime("$w1"));
 }
-echo implode($d);
-$pair = array();
-$cnt = 0;
-foreach($sql->fetchAll() as $row)
+
+//if(isset($_REQUEST['date']))
 {
-    echo $row['date'].' '.$row['section'].'<br>';
-    $w=date('w',strtotime($row['date']));
-    if($w==0)
-    {
-        $w = 7; 
-    }
+  //  echo 'test';
     
-    //$sc = $json_decode($row['section']);
-    $sc=json_decode($row['section']);
-    //echo $sc;
-    $rp = array(
-        "A" => "0",
-        
-        "B" => "5",
-        
-        "C" => "11",
-        "D" => "12",
-        "E" => "13"
-    );
-    for($i=0;$i<count($sc);$i++)
+}
+//else
+{   
+
+    date_default_timezone_set('Asia/Taipei');
+    //當前日期
+    //$sdefaultDate = date("Y-m-d");
+    // echo $sdefaultDate;
+    // echo $sdefaultDate.'<br>';
+     
+    //$first =1 表示每週星期一为開始日期 0表示每週日为開始日期
+    $first=1;
+     
+    //获取当前周的第几天 周日是 0 周一到周六是 1 - 6
+    //$w=date('w',strtotime($sdefaultDate));
+
+     
+    //取本周开始日期，如果$w是0，則表示周日，減去 6 天
+    /*$week_start=date('Y-m-d',strtotime("$sdefaultDate -".($w ? $w - $first : 6).' days')); 
+    $week_end=date('Y-m-d',strtotime("$week_start +6 days"));
+    $next_week = date('Y-m-d',strtotime("$week_end +1 days"));
+    $last_week = date('Y-m-d',strtotime("$week_start -7 days"));
+    */
+    //echo $_REQUEST['date'],' ',$_REQUEST['class'].'<br>';
+    //$year = date("Y");
+    $sql = $pdo->prepare('select * from apply where date between ? and ? and class=?');
+    $tmp = $week_start;
+    $end=date('Y-m-d',strtotime("$tmp +6 days"));
+    $sql->execute([$week_start,$end,$_REQUEST['class']]);
+    
+    $d = array();
+    for($i=0;$i<7;$i++)
     {
-        //echo $sc[$i].'<br>';
-        /*
-        if($sc[$i]=='A')
-        {
-            $sc[$i] = '0';
-        }
-        if($sc[$i]=='B')
-        {
-            $sc[$i] = '5';
-        }
-        if($sc[$i]=='C')
-        {
-           $sc[$i] = '11'; 
-        }*/
-        if($sc[$i]>='5'and $sc[$i]<='9')
-        {
-            $sc[$i] = $sc[$i] + '1';
-        }
-        else if(!($sc[$i]>='1'and $sc[$i]<='4'))
-        {    
-            $sc[$i] = $rp[$sc[$i]];
-        }    
-        $pair[$cnt] = array($sc[$i],$w);
-        $cnt++;
+        $d[$i] = $tmp;
+        $tmp = date('Y-m-d',strtotime("$tmp +1 days"));
     }
-}
-//echo implode($pair);
-//echo count($pair);
-
-/*
-for($i=0;$i<count($pair);$i++)
-{
-    echo implode($pair[$i]);
-    echo $pair[$i][1].'<br>';
-}
-*/
-
-//$ans = $sql->fetchAll();
-//echo count($ans);
-//echo $ans[0]['section'];
-//echo json_encode($sql->fetchAll(), JSON_UNESCAPED_UNICODE);
-
-// 輸出
-echo '<table id="customers">';
-for($i=0;$i<15;$i++) //時段
-{
-    echo '<tr>';
-    for($j=1;$j<=7;$j++)
+    // echo implode($d);
+    $pair = array();
+    $cnt = 0;
+    foreach($sql->fetchAll() as $row)
     {
-        echo '<td>';
-         $cp = array($i,$j);
-         //echo implode($cp); 
-         if(in_array($cp,$pair))
-         {
-             echo implode($cp);
-             //echo 'find it!';
-         }
-         /*
-         else
-         {
-             echo '<>';
-         }
-         */
-         echo '</td>';
+        //echo $row['date'].' '.$row['section'].'<br>';
+        $w=date('w',strtotime($row['date']));
+        if($w==0)
+        {
+            $w = 7; 
+        }
+        
+        //$sc = $json_decode($row['section']);
+        //$sc=json_decode($row['section']);
+        //echo 'Y'.$row['section'].'$<br>';
+        //echo gettype($row['section']).'<br>';
+        
+        $sc = json_decode($row['section'],true);
+        //$sc=explode(",",$sc);
+        //echo print_r($sc);
+        //echo gettype($sc);
+        //echo '^'.$sc.'$';
+        $rp = array(
+            "A" => "0",
+            
+            "B" => "5",
+            
+            "C" => "11",
+            "D" => "12",
+            "E" => "13",
+            "F" => "14"
+        );
+        for($i=0;$i<count($sc);$i++)
+        {
+            //echo $sc[$i].'<br>';
+            /*
+            if($sc[$i]=='A')
+            {
+                $sc[$i] = '0';
+            }
+            if($sc[$i]=='B')
+            {
+                $sc[$i] = '5';
+            }
+            if($sc[$i]=='C')
+            {
+               $sc[$i] = '11'; 
+            }*/
+            if($sc[$i]>='5'and $sc[$i]<='9')
+            {
+                $sc[$i] = $sc[$i] + '1';
+            }
+            else if(!($sc[$i]>='1'and $sc[$i]<='4'))
+            {    
+                //echo $sc[$i];
+                $sc[$i] = $rp[$sc[$i]];
+            }    
+            $pair[$cnt] = array($sc[$i],$w);
+            $cnt++;
+        }
     }
-    echo '</tr>';
-}
-echo '</table>';
+    //echo implode($pair);
+    //echo count($pair);
 
+    /*
+    for($i=0;$i<count($pair);$i++)
+    {
+        echo implode($pair[$i]);
+        echo $pair[$i][1].'<br>';
+    }
+    */
+
+    //$ans = $sql->fetchAll();
+    //echo count($ans);
+    //echo $ans[0]['section'];
+    //echo json_encode($sql->fetchAll(), JSON_UNESCAPED_UNICODE);
+    $Arr=array('Section','Time','Monday','Tuesday','Wedesday','Thursday','Friday','Saturday','Sunday');
+
+    // 輸出
+    echo '<table id="customers">';
+    echo '<th>'.$Arr[0].'</th>';
+    echo '<th>'.$Arr[1].'</th>';
+    
+    for($i=2;$i<9;$i++)
+    {
+        echo '<th>'.$Arr[$i].' '.$wk[$i-2].'</th>';
+    }
+    $s = ['A','1','2','3','4','B','5','6','7','8','9','C','D','E','F'];
+    $t = ['7:00-7:50','8:10-9:00','9:10-10:00','10:10-11:00','11:10-12:00','12:10-13:00','13:10-14:00','14:10-15:00','15:10-16:00','16:10-17:00','17:10-18:00','18:20-19:10','19:15-20:05','20:10-21:00','21:05-21:55'];
+    for($i=0;$i<15;$i++) //時段
+    {
+        
+        echo '<tr>';
+        echo '<td>'.$s[$i].'</td>';
+        echo '<td>'.$t[$i].'</td>';
+        for($j=1;$j<=7;$j++)
+        {
+            echo '<td>';
+             $cp = array($i,$j);
+             //echo implode($cp); 
+             if(in_array($cp,$pair))
+             {
+                 echo implode($cp);
+                 //echo 'find it!';
+             }
+             /*
+             else
+             {
+                 echo '<>';
+             }
+             */
+             echo '</td>';
+        }
+        echo '</tr>';
+    }
+    echo '</table>';
+}
 ?>

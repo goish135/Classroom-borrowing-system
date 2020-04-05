@@ -202,8 +202,8 @@ function showdv(str)
     </div>
   </div> 
   <li><a class="active" href="Request.php">Request</a></li>
-  <li><a href="Contact.html">Contact</a></li>
-  <li><a href="About.html">About</a></li>
+  <li><a href="Register.php">Register</a></li>
+  <li><a href="passwd.php">Update_Password</a></li>
 </ul>
 
 

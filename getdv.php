@@ -4,6 +4,7 @@ $q=$_GET["q"];
 // echo $q.'的device列表';
 // $id = substr($q,2);
 // echo $id;
+// $sql = $pdo->prepare('select device_name from facility where device_id=? and status=0');
 $sql = $pdo->prepare('select device_name from facility where device_id=?');
 $sql->execute([$q]);
 $result = "";

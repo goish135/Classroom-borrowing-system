@@ -22,11 +22,16 @@ else
     echo "節次不得為空";
 }    
 
+//$sql3 = $pdo->prepare('update facility set status=1 where device_id=? and device_name=?');
 if(isset($_REQUEST['device'])){
     $device  = json_encode($_REQUEST['device'], JSON_UNESCAPED_UNICODE);
     foreach($_REQUEST['device'] as $item)
     {
         echo '<p>',$item,'</p>';
+        //if($sql3->execute([$_REQUEST['classID'],$item]))
+        {
+            //echo '設備狀態=1';
+        }
     }
 }
 else

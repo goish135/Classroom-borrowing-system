@@ -199,6 +199,7 @@ $last_week = date('Y-m-d',strtotime("$week_start -7 days"));
     ?>  
     </div>
   </div> 
+  <li><a href="Browse.php">Browse</a></li>
   <li><a href="Request.php">Request</a></li>
   <li><a href="Register.php">Register</a></li>
   <li><a href="Update.php">Update_Password</a></li>

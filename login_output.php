@@ -9,11 +9,13 @@ foreach($sql->fetchAll() as $row)
     $_SESSION['staff'] = [
         'id' => $row['person_id'],
         'name' => $row['name'],
-        'pw' => $row['pw']];
+        'pw' => $row['pw'],
+        'unit_id'=>$row['unit_id']];
 }
 if(isset($_SESSION['staff']))
 {
-    echo "Hi,".$_SESSION['staff']['name'].'!';
+    echo "Hi,".$_SESSION['staff']['name'].'!<br>';
+    echo "單位:".$_SESSION['staff']['unit_id'];
 }
 else
 {

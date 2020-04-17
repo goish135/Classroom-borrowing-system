@@ -165,6 +165,7 @@ function myFunction(str,str2)
 <?php require 'connect.php';?>
 
 <?php
+    session_start(); 
     if(isset($_GET['id']))
     {
         //echo $_GET['id'];
@@ -241,6 +242,9 @@ $last_week = date('Y-m-d',strtotime("$week_start -7 days"));
 </ul>
 <br>
 <?php
+
+if(isset($_SESSION['staff']))
+{    
 echo '<table id="status">';
 echo '<tr><th>歸還狀態</th><th>借用人</th><th>班級</th><th>節次</th><th>目的</th><th>設備</th><th>借用日期</th><th>歸還時間</th><th>負責單位</th><th>負責人</th></tr>';
 foreach($pdo->query('select * from apply order by return_ok') as $row)
@@ -276,7 +280,12 @@ foreach($pdo->query('select * from apply order by return_ok') as $row)
         echo '</tr>';
     }        
 }
-echo '</table>';    
+echo '</table>';
+}
+else
+{
+    echo '請先登入';
+}    
 ?>
 
 

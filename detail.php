@@ -32,7 +32,8 @@ a:hover {
 #customers {
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   border-collapse: collapse;
-  width: 100%;
+  width: 50%;
+  
 }
 
 #customers td, #customers th {
@@ -127,77 +128,24 @@ li a:hover:not(.active) {
   display: block;
   
 }
-/* Create three equal columns that floats next to each other */
-.column {
-  float: left;
-  width: 30%;
-  padding: 15px;
-}
-
-/* Clear floats after the columns */
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
-@media screen and (max-width:600px) {
-  .column {
-    width: 100%;
-  }
-}
-
-
-.zoom:hover {
-  -ms-transform: scale(1.5); /* IE 9 */
-  -webkit-transform: scale(1.5); /* Safari 3-8 */
-  transform: scale(1.3); 
-}
 </style>
-<script>
-function showdetail(str) {
-    var flag = 0;
-    var floor = str.slice(2,3);
-    console.log(floor);
-    if(floor=="1")
-    {
-        document.getElementById("myImg").src="https://i.imgur.com/oFKHONM.jpg";
-    }
-    else if(floor=="3")
-    {
-        document.getElementById("myImg").src = "https://i.imgur.com/G0fsyE1.jpg";
-    }
-    else if(floor=="5")
-    {
-        document.getElementById("myImg").src = "https://i.imgur.com/kCLuhlH.jpg.jpg";
-    }
-    else
-    {
-        flag = 1;
-    }
-    if(flag==0)
-    {
-     document.getElementById("myImg").style="display:block";
-    } 
-    if (str.length == 0) {
-        document.getElementById("txtHint").innerHTML = "";
-        
-        return;
-    } else {
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("borrowed").innerHTML = this.responseText;
-                
-            }
-        }
-        xmlhttp.open("GET", "getdetail.php?q="+str, true);
-        xmlhttp.send();
-    }
-}
-</script>
 </head>
 <?php require 'connect.php';?>
+
+<?php
+
+        
+    /*
+    if(isset($_GET['id']))
+    {
+        //echo $_GET['id'];
+        $tmp = $_GET['id'];
+    }
+    */
+?>
+
+<body>
+
 <ul>
   <li><a  href="Home.php">Home</a></li>
    <div class="dropdown">
@@ -210,29 +158,12 @@ function showdetail(str) {
       {
           echo '<a href="status.php?class='.$row['croom_id'].'">'.$row['croom_id'].'</a>';
       }
-      /*
-      <a href="status.php?class=<?php echo "EC1005" ?>">EC1005</a>
-      <a href="#">EC1006</a>
-      <a href="#">EC1014-2</a>
-      <a href="#">EC2013-1</a>
-      <a href="#">EC2013-2</a>
-      <a href="#">EC2015</a>
-      <a href="#">EC3015</a>
-      <a href="#">EC3016</a>
-      <a href="#">EC5000</a>
-      <a href="#">EC5007</a>
-      <a href="#">EC5012</a>
-      <a href="#">EC5025</a>
-      <a href="#">EC5026</a>
-      <a href="#">EC9014</a>
-      <a href="#">EC9032-1</a>
-      <a href="#">EC9032-2</a>
-      <a href="#">EC9013</a>
-      */
+
     ?>  
     </div>
-  </div> 
-  <li><a class="active" href="Overview.php">Overview</a></li>
+  </div>
+  <li><a class="active" href="detail.php">教室&設備</a></li>  
+  <li><a href="Overview.php">Overview</a></li>
   <li><a href="Browse.php">Browse</a></li>
   <li><a href="Request.php">Request</a></li>
   <li><a href="Register.php">Register</a></li>
@@ -240,39 +171,58 @@ function showdetail(str) {
   <li><a href="login.php">Login</a></li>
   <li><a href="logout.php">Logout</a><li>
 </ul>
-<div class="row">
-  <div class="column">
-    <h2>教室資料表</h2>
-    
-    <span id="info">
-    <table id="customers">
-    <tr><th>教室編號</th><th>教室名稱</th><th>教室位置</th><th>教室容量</th></tr>
+    <br>
     <?php
+        session_start();
+        if($_SESSION['staff']['unit_id']=="cs")
+        {    
+           echo '<table id="customers">';
+           echo '<tr><td colspan="2" align="center">教室或設備的借用情形</td></tr>';
+           echo '<tr><th>教室編號</th><th>教室名稱</th><th>教室位置</th><th>教室容量</th><th>借用情況</th><th>設備狀態</th></tr>';
+    
         
         foreach($pdo->query("select * from classroom") as $row)
         {
-            echo '<tr onclick=showdetail("'.$row['croom_id'].'")>';
+            //echo '<tr onclick=showdetail("'.$row['croom_id'].'")>';
+            echo '<tr>';
             echo '<td>'.$row['croom_id'].'</td>';
             echo '<td>'.$row['croom_name'].'</td>';
             echo '<td>'.$row['croom_location'].'</td>';
             echo '<td>'.$row['croom_capacity'].'</td>';
             
+            echo '<td>';
+            $sql = $pdo->prepare("select date,section from apply where return_ok=(-1) and class=? order by date");
+            $sql->execute([$row['croom_id']]);
+            foreach($sql->fetchAll() as $row2)
+            {
+              echo $row2['date']." ".$row2['section']."<br>";
+            }
+            echo '</td>';
+            echo '<td>';
+            $sql2 = $pdo->prepare("select * from facility where device_id=? order by status");
+            $sql2 ->execute([$row['croom_id']]);
+            
+            foreach($sql2->fetchAll() as $row)
+            {
+                if($row['status']==0)
+                {
+                    echo '<font color=green>'.$row['device_name'].'</font><br>';
+                }
+                else
+                {
+                    echo '<font color=red>'.$row['device_name'].'</font><br>';
+                }                    
+            }
+            echo '</td>';
             echo '</tr>';
         }
-    ?>
-    </table>
-    </span>
-  </div>
-  
-  <div class="column">
-    <h2>預借情況</h2>
-    <span id="borrowed">
     
-    </span>
-  </div>
-   <div class="column">
-    <h2>位置</h2>
-    <img class="zoom" id="myImg" style="display:none" src="" width="100%" height="90%"></img>
-  </div> 
-</div>
+       echo '</table>';
+       }
+       else
+       {
+           echo '沒有權限';
+       }
+    ?>
+</body>
 </html>

@@ -251,7 +251,7 @@ foreach($pdo->query('select * from apply order by return_ok') as $row)
 {
     if($row['return_ok']==-1)
     {    
-        echo '<tr bgcolor="#eee">';
+        echo '<tr>';
         echo '<td><input type="checkbox" value="'.$row['ID'].'" onclick="myFunction(this.value,-1)"></td>';
         echo '<td>',$row['name'],'</td>';
         echo '<td>',$row['class'],'</td>';

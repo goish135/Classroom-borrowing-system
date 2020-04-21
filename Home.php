@@ -166,7 +166,7 @@ $last_week = date('Y-m-d',strtotime("$week_start -7 days"));
 <body>
 
 <ul>
-  <li><a class="active" href="#home">Home</a></li>
+  <li><a class="active" href="Home.php">Home</a></li>
    <div class="dropdown">
     <button class="dropbtn">Classroom 
       <i class="fa fa-caret-down"></i>
@@ -198,7 +198,8 @@ $last_week = date('Y-m-d',strtotime("$week_start -7 days"));
       */
     ?>  
     </div>
-  </div> 
+  </div>
+  <li><a href="detail.php">教室&設備</a></li>  
   <li><a href="Overview.php">Overview</a></li>
   <li><a href="Browse.php">Browse</a></li>
   <li><a href="Request.php">Request</a></li>

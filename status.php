@@ -243,7 +243,7 @@ for($i=0;$i<7;$i++)
     */
     //echo $_REQUEST['date'],' ',$_REQUEST['class'].'<br>';
     //$year = date("Y");
-    $sql = $pdo->prepare('select * from apply where date between ? and ? and class=?');
+    $sql = $pdo->prepare('select * from apply where date between ? and ? and class=? and return_ok=(-1)');
     $tmp = $week_start;
     $end=date('Y-m-d',strtotime("$tmp +6 days"));
     $sql->execute([$week_start,$end,$_REQUEST['class']]);

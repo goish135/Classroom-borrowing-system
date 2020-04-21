@@ -140,7 +140,7 @@ if(count($results))
     // You have records.
 }*/
 $cf = 0;
-$sql2 = $pdo->prepare('select * from apply where class=? and date=?');
+$sql2 = $pdo->prepare('select * from apply where class=? and date=? and return_ok=(-1)');
 
 $sql2->execute([$_REQUEST['classID'],$_REQUEST['date']]);
 foreach($sql2->fetchAll() as $row)

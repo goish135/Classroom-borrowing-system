@@ -174,7 +174,7 @@ function showdv(str)
     </button>
     <div class="dropdown-content">
       <?php
-      
+      session_start();      
       foreach($pdo->query('select croom_id from classroom') as $row)
       {
           echo '<a href="status.php?class='.$row['croom_id'].'">'.$row['croom_id'].'</a>';
@@ -205,125 +205,96 @@ function showdv(str)
   <li><a href="Register.php">Register</a></li>
   <li><a href="passwd.php">Update_Password</a></li>
 </ul>
-
-
-<form action="confirm-output.php" method="post">
-<p>借用人: <input type="text" name="Name"></p>
-<p>
-教室編號: 
-<select name="classID" onchange="showdv(this.value)">
 <?php
+
+if(isset($_SESSION['staff']))
+{    
+   echo '<form action="confirm-output.php" method="post">';
+   echo '<p>借用人: <input type="text" name="Name"></p>';
+
+   echo '<p>';   
+   echo '教室編號:'; 
+   echo '<select name="classID" onchange="showdv(this.value)">';
+   
       echo '<option value="">請選擇</option>';
       foreach($pdo->query('select croom_id from classroom') as $row)
       {
           //echo '<a href="status.php?class='.$row['croom_id'].'">'.$row['croom_id'].'</a>';
           echo '<option value="',$row['croom_id'],'">',$row['croom_id'],'</option>';
       }
-        /*    
-        $classID = 
-        [
-            'EC1005',
-            'EC1006',
-            'EC1014-2',
-            'EC2013-1',
-            'EC2013-2',
-            'EC2015',
-            'EC3015',
-            'EC3016',
-            'EC5000',
-            'EC5007',
-            'EC5012',
-            'EC5025',
-            'EC5026',
-            'EC9014',
-            'EC9032-1',
-            'EC9032-2',
-            'EC9013'
-        ]; 
-        foreach($classID as $item)
-        {
-            echo '<option value="',$item,'">',$item,'</option>';
-        }
-        */
-?>
-</select>
-</p>
 
-<p>日期: <input type="date"  name="date"></p>
-<p>節次: </p>
-<?php
+   echo '</select>';
+   echo '</p>';
 
-$timeline =
-[
-    '7:00-7:50',
-    '8:10-9:00',
-    '9:10-10:00',
-    '10:10-11:00',
-    '11:10-12:00',
-    '12:10-13:00',
-    '13:10-14:00',
-    '14:10-15:00',
-    '15:10-16:00',
-    '16:10-17:00',
-    '17:10-18:00',
-    '18:20-19:10',
-    '19:15-20:05',
-    '20:10-21:00',
-    '21:05-21:55'
-];
+   echo '<p>日期: <input type="date"  name="date"></p>';
+   echo '<p>節次: </p>';
 
 
-$section = 
-[
-    'A','1','2','3','4','B','5','6','7','8','9','C','D','E','F'
-];
-
-echo '<table style="width:100%">';
-$i = 0 ;
-foreach($section as $item)
-{
-    if($i == 0)    
-    {echo '<tr>';}
-    if($i == 5)
-    {echo '</tr>';$i=0;}
-    echo '<td>';
-    echo '<input type="checkbox" name="section[]" value="',$item,'">';
-    echo $item;
-    echo '</td>';
-    $i++;
-    
-}
-echo '</table>'
-?>
-<p>用途:</p>
-<textarea name="purpose" rows="5" cols="30">
-</textarea>
-<p>借用設備:</p>
+    $timeline =
+    [
+        '7:00-7:50',
+        '8:10-9:00',
+        '9:10-10:00',
+        '10:10-11:00',
+        '11:10-12:00',
+        '12:10-13:00',
+        '13:10-14:00',
+        '14:10-15:00',
+        '15:10-16:00',
+        '16:10-17:00',
+        '17:10-18:00',
+        '18:20-19:10',
+        '19:15-20:05',
+        '20:10-21:00',
+        '21:05-21:55'
+    ];
 
 
-<?php
-    /*
-    $device = ['筆電',"滑鼠","充電器","投影機","麥克風","音箱"];
-    foreach($device as $item)
+    $section = 
+    [
+        'A','1','2','3','4','B','5','6','7','8','9','C','D','E','F'
+    ];
+
+    echo '<table style="width:100%">';
+    $i = 0 ;
+    foreach($section as $item)
     {
-        echo '<input type="checkbox" name="device[]" value="',$item,'">';
-        echo $item."\t";
+        if($i == 0)    
+        {echo '<tr>';}
+        if($i == 5)
+        {echo '</tr>';$i=0;}
+        echo '<td>';
+        echo '<input type="checkbox" name="section[]" value="',$item,'">';
+        echo $item;
+        echo '</td>';
+        $i++;
     }
-    */
+    echo '</table>';
+
+    echo '<p>用途:</p>';
+    echo '<textarea name="purpose" rows="5" cols="30">';
+    echo '</textarea>';
+    echo '<p>借用設備:</p>';
+
+
+
+
+    echo '<div id="dvlist" >先選擇教室</div>';
+    echo '<br><br>';
+
+    echo '<input type="submit" value="申請送出">';
+    echo '</form>';
+    echo '<form>';
+    echo '<button onclick="window.print()">列印申請單</button>';
+    echo '</form>';
+
+
+}
+else
+{
+    echo '<p align="center">請先登入!</p>';
+}
+
 ?>
-
-<div id="dvlist" >先選擇教室</div>
-<br><br>
-
-<input type="submit" value="申請送出">
-</form>
-<form>
-<button onclick="window.print()">列印申請單</button>
-</form>
-<!-- <br><br> -->
-
-
-
-
 </body>
 </html>

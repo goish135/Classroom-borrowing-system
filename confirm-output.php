@@ -1,5 +1,7 @@
 <?php require 'connect.php';?>
 <?php
+session_start();
+//echo $_SESSION['staff'];
 
 if(isset($_REQUEST['Name']))
 echo '<p>',$_REQUEST['Name'],'</p>';
@@ -172,7 +174,7 @@ foreach($pdo->query('select * from apply') as $row)
     echo '</p>';
 }
 */
-$sql = $pdo->prepare('insert into apply (name,class,date,section,purpose,device,return_ok) value(?,?,?,?,?,?,-1)');
+$sql = $pdo->prepare('insert into apply (name,class,date,section,purpose,device,return_ok,login_id,email) value(?,?,?,?,?,?,-1,?,?)');
 if(empty($_REQUEST['Name']))
 {
     echo "借用人欄位不得為空!";
@@ -192,7 +194,7 @@ else if($cf==1)
 else
 {    
     if($sql->execute(
-    [$_REQUEST['Name'],$_REQUEST['classID'],$_REQUEST['date'],$section,$_REQUEST['purpose'],$device]))
+    [$_REQUEST['Name'],$_REQUEST['classID'],$_REQUEST['date'],$section,$_REQUEST['purpose'],$device,$_SESSION['staff']['id'],$_SESSION['staff']['email']]))
     {
         echo '新增成功';
     }

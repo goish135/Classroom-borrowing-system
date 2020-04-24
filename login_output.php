@@ -10,7 +10,10 @@ foreach($sql->fetchAll() as $row)
         'id' => $row['person_id'],
         'name' => $row['name'],
         'pw' => $row['pw'],
-        'unit_id'=>$row['unit_id']];
+        'unit_id'=>$row['unit_id'],
+        'email'=>$row['email']
+        ];
+        
 }
 if(isset($_SESSION['staff']))
 {

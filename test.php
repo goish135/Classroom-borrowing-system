@@ -57,10 +57,10 @@ foreach($pdo->query("select * from apply where return_ok =(-1)") as $row)
         {
             echo '超時';
             $flag = 1;
-            $to_email = "sundar1125@g-mail.nsysu.edu.tw";
-            $subject = "try";
-            $body = "Hi,nn This is test email send by PHP Script";
-            $headers = "From: sender\'s email";
+            $to_email = $row['email'];
+            $subject = "討債信件";
+            $body = "該還教室囉~~~headers?";
+            $headers = "From: nsysu cs borrowing sytem";
      
             if (mail($to_email, $subject, $body, $headers)) {
                 echo "Email successfully sent to $to_email...";
@@ -74,10 +74,10 @@ foreach($pdo->query("select * from apply where return_ok =(-1)") as $row)
             {
                 echo '寄信啦';
                 $flag = 1;
-                $to_email = "sundar1125@g-mail.nsysu.edu.tw";
-                $subject = "Simple Email Test via PHP";
-                $body = "Hi,nn This is test email send by PHP Script";
-                $headers = "From: sender\'s email";
+                $to_email = $row['email'];
+                $subject = "提醒";
+                $body = "該還教室囉~~~";
+                $headers = "From: 中山教室借用系統";
      
                 if (mail($to_email, $subject, $body, $headers)) {
                  echo "Email successfully sent to $to_email...";

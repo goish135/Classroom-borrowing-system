@@ -136,7 +136,7 @@ li a:hover:not(.active) {
 <body>
 
 <ul>
-  <li><a class="active" href="Home.php">Home</a></li>
+  <li><a  href="Home.php">Home</a></li>
    <div class="dropdown">
     <button class="dropbtn">Classroom 
       <i class="fa fa-caret-down"></i>
@@ -156,20 +156,55 @@ li a:hover:not(.active) {
   <li><a href="Request.php">Request</a></li>
   <li><a href="Register.php">Register</a></li>
   <li><a href="Update.php">Update_Password</a></li>
+  <li><a class="active" href="admin.php">管理帳密</a></li>
   <li><a href="login.php">Login</a></li>
   <li><a href="logout.php">Logout</a><li>
 </ul>
-
-
-
-
 <br><br>
+<table id="customers">
+<tr><th>編號</th><th>姓名</th><th>單位編號</th><th>電郵</th><th>電話</th><th>密碼</th><th>權限</th><th>action1</th><th>action2</th></tr>
+<?php
+foreach($pdo->query('select * from user') as $row)
+{
+    echo '<tr>';
+    echo '<form action="edit2.php" method="post">';
+    
+    echo '<input type="hidden" name="command" value="update">';
+    echo '<input type="hidden" name="id" value="'.$row['id'].'">';
+    echo '<td><input type="text" name="person_id" value="'.$row['person_id'].'"></td>';
+    echo '<td><input type="text" name="name" value="'.$row['name'].'"></td>';
+    echo '<td><input type="text" name="unit_id" value="'.$row['unit_id'].'"></td>';
+    echo '<td><input type="text" name="email" value="'.$row['email'].'"></td>';
+    echo '<td><input type="text" name="phone" value="'.$row['phone'].'"></td>';
+    // echo '<input type="text" value=">'.$row['pw'].'">';
+    echo '<td>secret</td>';
+    echo '<td><input type="text" name="role" value="'.$row['role'].'"></td>';
+    echo '<td><input type="submit" value="修改"></td>';
+    echo '</form>';
+    echo '<form action="edit2.php" method="post">';
+    echo '<input type="hidden" name="command" value="delete">';
+    echo '<input type="hidden" name="id" value="'.$row['id'].'">';
+    echo '<td><input type="submit" value="刪除"></td>';
+    echo '</form>';
+    echo '</tr>';
+}
+?>
 
+<tr>
+<form action="edit2.php" method="post">
+<input type="hidden" name="command" value="insert">
+<td><input type="text" name="person_id"></td>
+<td><input type="text" name="name"></td>
+<td><input type="text" name="unit_id"></td>
+<td><input type="text" name="email"></td>
+<td><input type="text" name="phone"></td>
+<td><input type="text" name="pw"></td>
+<td><input type="text" name="role"></td>
+<td><input type="submit" value="新增"></td>
+</form>
+</tr>
 
-
-
-
-
+</table>
 
 </body>
 </html>

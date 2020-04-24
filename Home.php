@@ -177,34 +177,17 @@ $last_week = date('Y-m-d',strtotime("$week_start -7 days"));
       {
           echo '<a href="status.php?class='.$row['croom_id'].'">'.$row['croom_id'].'</a>';
       }
-      /*
-      <a href="status.php?class=<?php echo "EC1005" ?>">EC1005</a>
-      <a href="#">EC1006</a>
-      <a href="#">EC1014-2</a>
-      <a href="#">EC2013-1</a>
-      <a href="#">EC2013-2</a>
-      <a href="#">EC2015</a>
-      <a href="#">EC3015</a>
-      <a href="#">EC3016</a>
-      <a href="#">EC5000</a>
-      <a href="#">EC5007</a>
-      <a href="#">EC5012</a>
-      <a href="#">EC5025</a>
-      <a href="#">EC5026</a>
-      <a href="#">EC9014</a>
-      <a href="#">EC9032-1</a>
-      <a href="#">EC9032-2</a>
-      <a href="#">EC9013</a>
-      */
     ?>  
     </div>
   </div>
+  
   <li><a href="detail.php">教室&設備</a></li>  
   <li><a href="Overview.php">Overview</a></li>
   <li><a href="Browse.php">Browse</a></li>
   <li><a href="Request.php">Request</a></li>
   <li><a href="Register.php">Register</a></li>
   <li><a href="Update.php">Update_Password</a></li>
+  <li><a href="admin.php">管理帳密</a></li>
   <li><a href="login.php">Login</a></li>
   <li><a href="logout.php">Logout</a><li>
 </ul>

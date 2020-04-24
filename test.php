@@ -17,7 +17,7 @@ $s = date("s");
 
 echo $y." ".$m." ".$d." ".$h.":".$mm.":".$s;
 $flag = 0;
-foreach($pdo->query("select * from apply") as $row)
+foreach($pdo->query("select * from apply where return_ok =(-1)") as $row)
 {
     //echo $row['date'];
     
@@ -57,6 +57,16 @@ foreach($pdo->query("select * from apply") as $row)
         {
             echo '超時';
             $flag = 1;
+            $to_email = "sundar1125@g-mail.nsysu.edu.tw";
+            $subject = "try";
+            $body = "Hi,nn This is test email send by PHP Script";
+            $headers = "From: sender\'s email";
+     
+            if (mail($to_email, $subject, $body, $headers)) {
+                echo "Email successfully sent to $to_email...";
+            } else {
+                echo "Email sending failed...";    
+            }
         }
         else if((int)$h==(int)$b[0])
         {
@@ -64,6 +74,16 @@ foreach($pdo->query("select * from apply") as $row)
             {
                 echo '寄信啦';
                 $flag = 1;
+                $to_email = "sundar1125@g-mail.nsysu.edu.tw";
+                $subject = "Simple Email Test via PHP";
+                $body = "Hi,nn This is test email send by PHP Script";
+                $headers = "From: sender\'s email";
+     
+                if (mail($to_email, $subject, $body, $headers)) {
+                 echo "Email successfully sent to $to_email...";
+                } else {
+                 echo "Email sending failed...";    
+                }                
             }
             else
             {
@@ -91,7 +111,7 @@ echo $now['sa'];
 */
 
 
-
+/*
 if($flag)
 {    
     $to_email = "sundar1125@g-mail.nsysu.edu.tw";
@@ -104,7 +124,7 @@ if($flag)
     } else {
         echo "Email sending failed...";    
     }
-}
+}*/
 
 
 ?>

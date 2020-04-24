@@ -172,7 +172,7 @@ foreach($pdo->query('select * from apply') as $row)
     echo '</p>';
 }
 */
-$sql = $pdo->prepare('insert into apply (name,class,date,section,purpose,device) value(?,?,?,?,?,?)');
+$sql = $pdo->prepare('insert into apply (name,class,date,section,purpose,device,return_ok) value(?,?,?,?,?,?,-1)');
 if(empty($_REQUEST['Name']))
 {
     echo "借用人欄位不得為空!";

@@ -3,6 +3,44 @@
 <head>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
+
+input[type=submit] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: center;
+}
+
+
+input[type=button] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: center;
+}
+
+input[type=text] {
+  width: 30%;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: white;
+  background-image: url('https://www.w3schools.com/css/searchicon.png');
+  background-position: 10px 10px; 
+  background-repeat: no-repeat;
+  padding: 12px 20px 12px 40px;
+  float: center;
+}
+
+
+
 .center {
   display: flex;
   justify-content: center;
@@ -141,6 +179,21 @@ li a:hover:not(.active) {
   
 }
 </style>
+<script>
+function show() {
+  var a = document.getElementById("myText").value;
+  console.log(a);
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                //alert("in");
+                document.getElementById("ta").innerHTML = this.responseText;
+            }
+  };
+  xmlhttp.open("GET", "search2.php?keyword=" + a, true);
+  xmlhttp.send();
+}
+</script>
 </head>
 <?php require 'connect.php';?>
 
@@ -166,6 +219,7 @@ li a:hover:not(.active) {
     </button>
     <div class="dropdown-content">
     <?php
+      session_start();
       foreach($pdo->query('select croom_id from classroom') as $row)
       {
           echo '<a href="status.php?class='.$row['croom_id'].'">'.$row['croom_id'].'</a>';
@@ -183,21 +237,26 @@ li a:hover:not(.active) {
   <li><a href="login.php">Login</a></li>
   <li><a href="logout.php">Logout</a><li>
 </ul>
-    <br>
+    <br><br>
     <?php
-       session_start();
+       
        if(isset($_SESSION['staff']) && $_SESSION['staff']['unit_id']=="cs")
-       {    
-            echo '<form action="search.php" method="post">';
-            echo '<input type="text" name="keyword">';
-            echo '<input type="submit" value="搜尋">';
-            echo '</form>';
-            
+       {
+                      
+            echo '<form action="search.php" method="post" align="center">';
+            echo '<input type="text" name="keyword" placeholder="Null:Show All" id="myText">  ';
+            //echo '<input type="submit" value="搜尋">';
+            echo '<input type="button" onclick="show()" value="搜尋">';
+            echo '</form>'; 
        }
        else
        {
             echo '<div class="center"><p>No Permission</p></div>';
        }
     ?>
+    <br>
+    <div id="ta" align="center">
+    
+    </div>
 </body>
 </html>

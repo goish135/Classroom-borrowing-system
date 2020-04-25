@@ -1,7 +1,25 @@
 <?php require 'connect.php'?>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
-
+.center2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  border: 3px solid red;
+  margin: 200px;
+  
+  border-radius: 25px;
+  
+  text-shadow: -1px 0 red, 0 1px red, 1px 0 red, 0 -1px red;
+  font-size: 30px;  
+}
+.center {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 30px;
+  padding-left: 20%;
+}
 a {
   text-decoration: none;
   display: inline-block;
@@ -125,6 +143,42 @@ li a:hover:not(.active) {
   display: block;
   
 }
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+input[type=password], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+input[type=submit] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+}
+
+
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+.center {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 30px;
+  padding-left: 20%;
+}
 </style>
 <ul>
   <li><a href="Home.php">Home</a></li>
@@ -134,6 +188,7 @@ li a:hover:not(.active) {
     </button>
     <div class="dropdown-content">
     <?php
+      session_start();
       foreach($pdo->query('select croom_id from classroom') as $row)
       {
           echo '<a href="status.php?class='.$row['croom_id'].'">'.$row['croom_id'].'</a>';
@@ -152,9 +207,12 @@ li a:hover:not(.active) {
 <?php require "connect.php" ?>
 
 <?php
-    session_start();
+    
+    
+    
     if(isset($_SESSION['staff']))
     {
+        echo '<div class="center">';
         $name = $_SESSION['staff']['name'];
         $id = $_SESSION['staff']['id'];
         $pw = $_SESSION['staff']['pw'];
@@ -166,11 +224,14 @@ li a:hover:not(.active) {
         echo '<tr><td><input type="submit" value="更改密碼"></td></tr>';
         echo '</table>';
         echo '</form>';
+        echo '</div>';
     }
     else
     {
-        echo "<br>請先登入";
+        echo '<div class="center2"><p>Not yet Login</p></div>';
     }
+     
+    
 ?>
 
 
@@ -179,4 +240,3 @@ li a:hover:not(.active) {
 
 
 
-</form>

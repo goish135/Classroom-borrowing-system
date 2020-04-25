@@ -3,7 +3,19 @@
 <head>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
-
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  border: 3px solid red;
+  margin: 200px;
+  
+  border-radius: 25px;
+  
+  text-shadow: -1px 0 red, 0 1px red, 1px 0 red, 0 -1px red;
+  font-size: 30px;  
+}
 a {
   text-decoration: none;
   display: inline-block;
@@ -143,6 +155,7 @@ li a:hover:not(.active) {
     </button>
     <div class="dropdown-content">
     <?php
+      session_start();
       foreach($pdo->query('select croom_id from classroom') as $row)
       {
           echo '<a href="status.php?class='.$row['croom_id'].'">'.$row['croom_id'].'</a>';
@@ -161,50 +174,58 @@ li a:hover:not(.active) {
   <li><a href="logout.php">Logout</a><li>
 </ul>
 <br><br>
-<table id="customers">
-<tr><th>編號</th><th>姓名</th><th>單位編號</th><th>電郵</th><th>電話</th><th>密碼</th><th>權限</th><th>action1</th><th>action2</th></tr>
+
 <?php
-foreach($pdo->query('select * from user') as $row)
+if(isset($_SESSION['staff'])&&$_SESSION['staff']['role']=="admin")
 {
+    
+    echo '<table id="customers">';
+    echo '<tr><th>編號</th><th>姓名</th><th>單位編號</th><th>電郵</th><th>電話</th><th>密碼</th><th>權限</th><th>action1</th><th>action2</th></tr>';    
+    foreach($pdo->query('select * from user') as $row)
+    {
+        echo '<tr>';
+        echo '<form action="edit2.php" method="post">';
+        
+        echo '<input type="hidden" name="command" value="update">';
+        echo '<input type="hidden" name="id" value="'.$row['id'].'">';
+        echo '<td><input type="text" name="person_id" value="'.$row['person_id'].'"></td>';
+        echo '<td><input type="text" name="name" value="'.$row['name'].'"></td>';
+        echo '<td><input type="text" name="unit_id" value="'.$row['unit_id'].'"></td>';
+        echo '<td><input type="text" name="email" value="'.$row['email'].'"></td>';
+        echo '<td><input type="text" name="phone" value="'.$row['phone'].'"></td>';
+        // echo '<input type="text" value=">'.$row['pw'].'">';
+        echo '<td>secret</td>';
+        echo '<td><input type="text" name="role" value="'.$row['role'].'"></td>';
+        echo '<td><input type="submit" value="修改"></td>';
+        echo '</form>';
+        echo '<form action="edit2.php" method="post">';
+        echo '<input type="hidden" name="command" value="delete">';
+        echo '<input type="hidden" name="id" value="'.$row['id'].'">';
+        echo '<td><input type="submit" value="刪除"></td>';
+        echo '</form>';
+        echo '</tr>';
+    }
+    
+
     echo '<tr>';
     echo '<form action="edit2.php" method="post">';
-    
-    echo '<input type="hidden" name="command" value="update">';
-    echo '<input type="hidden" name="id" value="'.$row['id'].'">';
-    echo '<td><input type="text" name="person_id" value="'.$row['person_id'].'"></td>';
-    echo '<td><input type="text" name="name" value="'.$row['name'].'"></td>';
-    echo '<td><input type="text" name="unit_id" value="'.$row['unit_id'].'"></td>';
-    echo '<td><input type="text" name="email" value="'.$row['email'].'"></td>';
-    echo '<td><input type="text" name="phone" value="'.$row['phone'].'"></td>';
-    // echo '<input type="text" value=">'.$row['pw'].'">';
-    echo '<td>secret</td>';
-    echo '<td><input type="text" name="role" value="'.$row['role'].'"></td>';
-    echo '<td><input type="submit" value="修改"></td>';
-    echo '</form>';
-    echo '<form action="edit2.php" method="post">';
-    echo '<input type="hidden" name="command" value="delete">';
-    echo '<input type="hidden" name="id" value="'.$row['id'].'">';
-    echo '<td><input type="submit" value="刪除"></td>';
+    echo '<input type="hidden" name="command" value="insert">';
+    echo '<td><input type="text" name="person_id"></td>';
+    echo '<td><input type="text" name="name"></td>';
+    echo '<td><input type="text" name="unit_id"></td>';
+    echo '<td><input type="text" name="email"></td>';
+    echo '<td><input type="text" name="phone"></td>';
+    echo '<td><input type="text" name="pw"></td>';
+    echo '<td><input type="text" name="role"></td>';
+    echo '<td><input type="submit" value="新增"></td>';
     echo '</form>';
     echo '</tr>';
+    echo '</table>';
+}
+else
+{
+    echo '<div class="center"><p>No Permission</p></div>';
 }
 ?>
-
-<tr>
-<form action="edit2.php" method="post">
-<input type="hidden" name="command" value="insert">
-<td><input type="text" name="person_id"></td>
-<td><input type="text" name="name"></td>
-<td><input type="text" name="unit_id"></td>
-<td><input type="text" name="email"></td>
-<td><input type="text" name="phone"></td>
-<td><input type="text" name="pw"></td>
-<td><input type="text" name="role"></td>
-<td><input type="submit" value="新增"></td>
-</form>
-</tr>
-
-</table>
-
 </body>
 </html>

@@ -3,6 +3,19 @@
 <head>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  border: 3px solid red;
+  margin: 200px;
+  
+  border-radius: 25px;
+  
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  font-size: 30px;  
+}
 
 a {
   text-decoration: none;
@@ -292,7 +305,7 @@ if(isset($_SESSION['staff']))
 }
 else
 {
-    echo '<p align="center">請先登入!</p>';
+    echo '<div class="center"><p>Not yet Login</p></div>';
 }
 
 ?>

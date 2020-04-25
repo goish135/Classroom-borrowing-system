@@ -2,6 +2,14 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
 
+
+.center {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 30px;
+  padding-left: 20%;
+}
+
 a {
   text-decoration: none;
   display: inline-block;
@@ -125,6 +133,28 @@ li a:hover:not(.active) {
   display: block;
   
 }
+input[type=button] {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+.button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+.button3 {background-color: #f44336;} /* Red */ 
 </style>
 <ul>
   <li><a href="Home.php">Home</a></li>
@@ -148,7 +178,9 @@ li a:hover:not(.active) {
   <li><a href="login.php">Login</a></li>
   <li><a class="active" href="logout.php">Logout</a><li>
 </ul>
+<div class="center">
+<h2> 確定要登出系統嗎? </h2>
 
-<p> 確定要登出系統嗎? </p>
-<a href="logout_output.php">登出</a>
+<button  class="button button3" onclick="location.href='logout_output.php'">登出</button>
+</div>
 

@@ -2,6 +2,43 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
 
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+input[type=password], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+input[type=submit] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+}
+
+
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+.center {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 30px;
+  padding-left: 20%;
+}
+
 a {
   text-decoration: none;
   display: inline-block;
@@ -154,10 +191,13 @@ form{
     margin-left:25%;   
 }
 </style>
+<div class="center">
 <form action="login_output.php" method="post">
  <table>
+ <tr><h2>登入頁面</h2></tr>
  <tr><td>學號:</td><td><input type="text" name="login"></td></tr>
  <tr><td>密碼:</td><td><input type="password" name="pw"></td></tr>
- <tr><td><input type="submit" value="登入"></td></tr>
+ <tr><td></td><td><input type="submit" value="登入"></td></tr>
  </table>
 </form>
+</div>

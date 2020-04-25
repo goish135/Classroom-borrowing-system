@@ -1,6 +1,19 @@
 <?php require 'connect.php'?>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  border: 3px solid red;
+  margin: 200px;
+  
+  border-radius: 25px;
+  
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  font-size: 30px;  
+}
 
 a {
   text-decoration: none;
@@ -148,16 +161,20 @@ li a:hover:not(.active) {
   <li><a href="login.php">Login</a></li>
   <li><a class="active" href="logout.php">Logout</a><li>
 </ul>
+
 <?php
+echo '<div class="center">';
 session_start();
 if(isset($_SESSION['staff']))
 {
     unset($_SESSION['staff']);
-    echo '<br>登出成功';
+    echo 'Logout successfully';
 }
 else
 {
-    echo '<br>原本就登出狀態';
+    echo 'No Login No Logout';
 }
+echo '</div>';
 ?>
+
 

@@ -1,6 +1,33 @@
 <?php require 'connect.php'?>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+input[type=submit] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+.center {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 30px;
+  padding-left: 20%;
+}
 
 a {
   text-decoration: none;
@@ -148,21 +175,25 @@ form{
   </div> 
   <li><a href="Request.php">Request</a></li>
   <li><a class="active" href="Register.php">Register</a></li>
-  <li><a href="Update.html">Update_Password</a></li>
+  <li><a href="Update.php">Update_Password</a></li>
   <li><a href="login.php">Login</a></li>
   <li><a href="logout.php">Logout</a><li>
 </ul>
 
 <br><br>
 
+<div class="center">
+
 <form action="userdata_in.php" method="post" >
 <table>
-<tr><td>學號(職位編號): </td><td><input type="text" name="id" value=""></td></tr>
+<tr><td collapse=2><h2>註冊表格</h2></td></tr>
+<tr><td>學號(職位編號): </td><td><input type="text" name="id"  placeholder="帳號" value=""></td></tr>
 <tr><td> 姓名: </td> <td><input type="text" name="name" value=""></td></tr>
 <tr><td>Email: </td> <td><input type="text" name="email" value=""></td></tr>
 <tr><td>Phone:</td> <td><input type="text" name="phone" value=""></td></tr>
 <tr><td>lab(辦公室)編號:</td> <td><input type="text" name="unit" value=""></td></tr>
 <tr><td>密碼:</td> <td><input type="text" name="pw" value=""></td></tr>
-<tr><td><input type="submit"  value="註冊"></td></tr>
+<tr><td></td><td><input type="submit"  value="註冊"></td></tr>
 </table>
 </form>
+</div>

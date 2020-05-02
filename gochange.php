@@ -13,6 +13,8 @@ $sql->execute([$q]);
 
 //echo $_SESSION['staff']['unit_id'],$_SESSION['staff']['name'];
 //echo $q2;
+// echo $_SESSION['staff']['name'];
+
 if($q2==1) // -> -1 : 按錯情況
 {
     //echo "未還";

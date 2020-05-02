@@ -257,7 +257,7 @@ $last_week = date('Y-m-d',strtotime("$week_start -7 days"));
 <br>
 <?php
 
-if(isset($_SESSION['staff']))
+if(isset($_SESSION['staff'])&&$_SESSION['staff']['role']==1)
 {    
 echo '<table id="status">';
 echo '<tr><th>歸還狀態</th><th>借用人</th><th>班級</th><th>節次</th><th>目的</th><th>設備</th><th>借用日期</th><th>歸還時間</th><th>負責單位</th><th>負責人</th></tr>';

@@ -183,15 +183,17 @@ a:hover {
 
 </style>
 </head>
-<?php require 'connect.php';?>
+
 <ul>
-  <li><a class="active" href="Home.php">Home</a></li>
+  <li><a class="active" href="main.php">Home</a></li>
    <div class="dropdown">
     <button class="dropbtn">Classroom 
       <i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-content">
+    
     <?php
+      session_start();
       foreach($pdo->query('select croom_id from classroom') as $row)
       {
           echo '<a href="status.php?class='.$row['croom_id'].'">'.$row['croom_id'].'</a>';
@@ -200,15 +202,40 @@ a:hover {
     </div>
   </div>
   
-  <li><a href="detail.php">教室&設備</a></li>  
+   
   <li><a href="Overview.php">Overview</a></li>
-  <li><a href="Browse.php">Browse</a></li>
-  <li><a href="Request.php">Request</a></li>
   <li><a href="Register.php">Register</a></li>
-  <li><a href="Update.php">Update_Password</a></li>
-  <li><a href="admin.php">管理帳密</a></li>
-  <li><a href="login.php">Login</a></li>
-  <li><a href="logout.php">Logout</a><li>
+  
+  <?php
+  if(!isset($_SESSION['staff']))
+  {
+      echo '<li><a href="login.php">Login</a></li>';
+  }
+  
+  if(isset($_SESSION['staff']) && $_SESSION['staff']['role']=="1")
+  {    
+    echo '<li><a href="detail.php">教室&設備</a></li>'; 
+    echo '<li><a href="Browse.php">Browse</a></li>';
+    echo '<li><a href="Update.php">Update_Password</a></li>';
+  }
+  //echo $_SESSION['staff']['role'];
+    
+  if(isset($_SESSION['staff']) && $_SESSION['staff']['role']=="0")
+  {
+    echo '<li><a href="Request.php">Request</a></li>';  
+  }
+
+  if(isset($_SESSION['staff']) && $_SESSION['staff']['role']=="admin")
+  {    
+    echo '<li><a href="admin.php">管理帳密</a></li>';
+  }  
+  
+  if(isset($_SESSION['staff']))
+  {      
+    echo '<li><a href="logout.php">Logout</a><li>';
+  }    
+  
+  ?>  
 </ul>
 
 <br>

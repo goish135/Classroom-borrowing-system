@@ -212,7 +212,7 @@ function show() {
 <body>
 
 <ul>
-  <li><a  href="Home.php">Home</a></li>
+  <li><a  href="main.php">Home</a></li>
    <div class="dropdown">
     <button class="dropbtn">Classroom 
       <i class="fa fa-caret-down"></i>
@@ -228,19 +228,43 @@ function show() {
     ?>  
     </div>
   </div>
-  <li><a class="active" href="detail.php">教室&設備</a></li>  
-  <li><a href="Overview.php">Overview</a></li>
-  <li><a href="Browse.php">Browse</a></li>
-  <li><a href="Request.php">Request</a></li>
+<li><a href="Overview.php">Overview</a></li>
   <li><a href="Register.php">Register</a></li>
-  <li><a href="Update.php">Update_Password</a></li>
-  <li><a href="login.php">Login</a></li>
-  <li><a href="logout.php">Logout</a><li>
+  
+  <?php
+  if(!isset($_SESSION['staff']))
+  {
+      echo '<li><a href="login.php">Login</a></li>';
+  }
+  
+  if(isset($_SESSION['staff']) && $_SESSION['staff']['role']=="1")
+  {    
+    echo '<li><a href="detail.php" class="active">教室&設備</a></li>'; 
+    echo '<li><a href="Browse.php">Browse</a></li>';
+    echo '<li><a href="Update.php">Update_Password</a></li>';
+  }
+
+  if(isset($_SESSION['staff']) && $_SESSION['staff']['role']=="0")
+  {
+    echo '<li><a href="Request.php">Request</a></li>';  
+  }
+
+  if(isset($_SESSION['staff']) && $_SESSION['staff']['role']=="admin")
+  {    
+    echo '<li><a href="admin.php">管理帳密</a></li>';
+  }  
+  
+  if(isset($_SESSION['staff']))
+  {      
+    echo '<li><a href="logout.php">Logout</a><li>';
+  }    
+  
+  ?>  
 </ul>
     <br><br>
     <?php
        
-       if(isset($_SESSION['staff']) && $_SESSION['staff']['role']==1)
+       if(isset($_SESSION['staff']) && $_SESSION['staff']['role']=="1")
        {
                       
             echo '<form  method="post" align="center">';

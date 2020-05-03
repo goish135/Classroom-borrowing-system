@@ -140,37 +140,6 @@ li a:hover:not(.active) {
 </style>
 </head>
 <?php require 'connect.php';?>
-<ul>
-  <li><a class="active" href="Home.php">Home</a></li>
-   <div class="dropdown">
-    <button class="dropbtn">Classroom 
-      <i class="fa fa-caret-down"></i>
-    </button>
-    <div class="dropdown-content">
-    <?php
-      foreach($pdo->query('select croom_id from classroom') as $row)
-      {
-          echo '<a href="status.php?class='.$row['croom_id'].'">'.$row['croom_id'].'</a>';
-      }
-    ?>  
-    </div>
-  </div>
-  
-  <li><a href="detail.php">教室&設備</a></li>  
-  <li><a href="Overview.php">Overview</a></li>
-  <li><a href="Browse.php">Browse</a></li>
-  <li><a href="Request.php">Request</a></li>
-  <li><a href="Register.php">Register</a></li>
-  <li><a href="Update.php">Update_Password</a></li>
-  <li><a href="admin.php">管理帳密</a></li>
-  <li><a href="login.php">Login</a></li>
-  <li><a href="logout.php">Logout</a><li>
-</ul>
-<br>
-
-
-
-
 <?php
 session_start();
 unset($_SESSION['staff']);
@@ -188,6 +157,63 @@ foreach($sql->fetchAll() as $row)
         ];
         
 }
+?>
+
+
+<ul>
+  <li><a class="active" href="main.php">Home</a></li>
+   <div class="dropdown">
+    <button class="dropbtn">Classroom 
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+    <?php
+      
+      foreach($pdo->query('select croom_id from classroom') as $row)
+      {
+          echo '<a href="status.php?class='.$row['croom_id'].'">'.$row['croom_id'].'</a>';
+      }
+    ?>  
+    </div>
+  </div>
+  
+<li><a href="Overview.php">Overview</a></li>
+  <li><a href="Register.php">Register</a></li>
+  
+  <?php
+  
+
+  
+  if(isset($_SESSION['staff']) && $_SESSION['staff']['role']=="1")
+  {    
+    echo '<li><a href="detail.php" >教室&設備</a></li>'; 
+    echo '<li><a href="Browse.php" >Browse</a></li>';
+    echo '<li><a href="Update.php">Update_Password</a></li>';
+  }
+
+  if(isset($_SESSION['staff']) && $_SESSION['staff']['role']=="0")
+  {
+    echo '<li><a href="Request.php">Request</a></li>';  
+  }
+
+  if(isset($_SESSION['staff']) && $_SESSION['staff']['role']=="admin")
+  {    
+    echo '<li><a href="admin.php">管理帳密</a></li>';
+  }  
+  
+  if(isset($_SESSION['staff']))
+  {
+      echo '<li><a href="logout.php">Logout</a></li>';
+  }
+  else
+  {
+      echo '<li><a href="login.php">Login</a><li>';
+  }
+  
+  ?>   
+</ul>
+<br>
+<?php
 echo '<div class="center">';
 if(isset($_SESSION['staff']))
 {
@@ -200,3 +226,6 @@ else
 }
 echo '</div>';
 ?>
+
+
+

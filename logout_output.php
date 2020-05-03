@@ -140,13 +140,14 @@ li a:hover:not(.active) {
 }
 </style>
 <ul>
-  <li><a href="Home.php">Home</a></li>
+  <li><a href="main.php" class="active">Home</a></li>
    <div class="dropdown">
     <button class="dropbtn">Classroom 
       <i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-content">
     <?php
+      session_start();
       foreach($pdo->query('select croom_id from classroom') as $row)
       {
           echo '<a href="status.php?class='.$row['croom_id'].'">'.$row['croom_id'].'</a>';
@@ -155,16 +156,17 @@ li a:hover:not(.active) {
     ?>  
     </div>
   </div> 
-  <li><a href="Request.php">Request</a></li>
+<li><a href="Overview.php">Overview</a></li>
   <li><a href="Register.php">Register</a></li>
-  <li><a href="Update.php">Update_Password</a></li>
+  
+
   <li><a href="login.php">Login</a></li>
-  <li><a class="active" href="logout.php">Logout</a><li>
+
 </ul>
 
 <?php
 echo '<div class="center">';
-session_start();
+
 if(isset($_SESSION['staff']))
 {
     unset($_SESSION['staff']);

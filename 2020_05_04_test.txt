@@ -1,0 +1,26 @@
+入口網站
+- 載入可以聽到愛的迫降 Song for Brother
+- Home 可以進行 當天或其他天的 教室借用瀏覽
+- Login 後可以進行教室借用
+- 沒有會員就進行註冊吧
+
+// today is 5/4 // 
+沒有教室借用紀錄
+看一下 5/3 吧 ~ 有的 
+
+進行 不同瀏覽方式吧 Classroom ~ Done
+
+第三種 GO 更 detail 
+小小 bug 圖片顯示 除了 1,3,5 其他 應該是要 none
+block --> done 
+
+現在 我們來登入 先假設沒有會員 預設會員權限為 0 : 一般 :: 可申請借用
+userdata_in 顯示 刪掉不會用到的功能 只顯示相關
+confirm_output 的頁面 : 改為 main.php 
+借用測試 OK 
+
+登出 後 來看系辦管理part , role = 1
+確認歸還 ~~ Done 
+
+GoGo 系統管理者 / 管理帳密 
+踢掉使用者 Done 

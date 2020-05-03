@@ -1,4 +1,5 @@
 <?php require 'connect.php';?>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
 a {
   text-decoration: none;
@@ -125,7 +126,8 @@ li a:hover:not(.active) {
 }
 </style>
 <ul>
-  <li><a class="active" href="#home">Home</a></li>
+  <li><a  href="main.php">Home</a></li>
+   <li class="active">
    <div class="dropdown">
     <button class="dropbtn">Classroom 
       <i class="fa fa-caret-down"></i>
@@ -137,27 +139,10 @@ li a:hover:not(.active) {
           echo '<a href="status.php?class='.$row['croom_id'].'">'.$row['croom_id'].'</a>';
       }
     ?>
-<!--    
-      <a href="status.php?class=<?php echo "EC1005" ?>">EC1005</a>
-      <a href="#">EC1006</a>
-      <a href="#">EC1014-2</a>
-      <a href="#">EC2013-1</a>
-      <a href="#">EC2013-2</a>
-      <a href="#">EC2015</a>
-      <a href="#">EC3015</a>
-      <a href="#">EC3016</a>
-      <a href="#">EC5000</a>
-      <a href="#">EC5007</a>
-      <a href="#">EC5012</a>
-      <a href="#">EC5025</a>
-      <a href="#">EC5026</a>
-      <a href="#">EC9014</a>
-      <a href="#">EC9032-1</a>
-      <a href="#">EC9032-2</a>
-      <a href="#">EC9013</a>
--->      
+     
     </div>
-  </div> 
+  </div>
+  </li>  
   <li><a href="Request.php">Request</a></li>
   <li><a href="Contact.html">Contact</a></li>
   <li><a href="About.html">About</a></li>

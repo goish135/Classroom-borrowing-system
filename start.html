@@ -1,0 +1,74 @@
+<style>
+html {
+   min-height: 100%;
+   background-image: url(https://miro.medium.com/max/3840/1*SAaCNRWasjD5FtwaHZN9Gw.jpeg);
+   background-size: cover;
+   background-repeat: no-repeat;
+   background-position: center center;
+   background-attachment: fixed;
+}
+.btn-group .button {
+
+  
+  background-color: #4CAF50; /* Green */
+  border: 1px solid green;
+  color: white;
+  padding: 25px 30px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 24px;
+  cursor: pointer;
+  float:left;
+}
+
+.btn-group .button:not(:last-child) {
+  border-right: none; /* Prevent double borders */
+}
+
+.btn-group .button:hover {
+  background-color: #3e8e41;
+}
+.container {
+  position: relative;
+  
+}
+.container  {
+  
+  position: absolute;
+  top: 45%;
+  left: 28%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  background-color: #f1f1f1;
+  
+  
+  
+  border: none;
+  cursor: pointer;
+ 
+  text-align: center;
+}
+.text-block {
+  position: absolute;
+  top: 15%;
+  left: 12%;
+  font-family: Arial;
+  font-size:40px;
+  color: white;
+    
+}
+
+</style>
+  <div class="text-block">
+    <h4>Classroom borrowing system</h4>
+    
+  </div>
+<div class="container">
+
+<div class="btn-group">
+  <button class="button" onclick="location.href='main.php'">Home</button>
+  <button class="button" onclick="location.href='login.php'">Login</button>
+  <button class="button" onclick="location.href='Register.php'">Register</button>
+</div>
+</div>

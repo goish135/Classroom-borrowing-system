@@ -240,10 +240,11 @@ function show() {
     <br><br>
     <?php
        
-       if(isset($_SESSION['staff']) && $_SESSION['staff']['unit_id']=="cs")
+       if(isset($_SESSION['staff']) && $_SESSION['staff']['role']==1)
        {
                       
-            echo '<form action="search.php" method="post" align="center">';
+            echo '<form  method="post" align="center">';
+            // action="search.php"
             echo '<input type="text" name="keyword" placeholder="Null:Show All" id="myText">  ';
             //echo '<input type="submit" value="搜尋">';
             echo '<input type="button" onclick="show()" value="搜尋">';

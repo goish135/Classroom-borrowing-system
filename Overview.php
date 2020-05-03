@@ -210,25 +210,7 @@ function showdetail(str) {
       {
           echo '<a href="status.php?class='.$row['croom_id'].'">'.$row['croom_id'].'</a>';
       }
-      /*
-      <a href="status.php?class=<?php echo "EC1005" ?>">EC1005</a>
-      <a href="#">EC1006</a>
-      <a href="#">EC1014-2</a>
-      <a href="#">EC2013-1</a>
-      <a href="#">EC2013-2</a>
-      <a href="#">EC2015</a>
-      <a href="#">EC3015</a>
-      <a href="#">EC3016</a>
-      <a href="#">EC5000</a>
-      <a href="#">EC5007</a>
-      <a href="#">EC5012</a>
-      <a href="#">EC5025</a>
-      <a href="#">EC5026</a>
-      <a href="#">EC9014</a>
-      <a href="#">EC9032-1</a>
-      <a href="#">EC9032-2</a>
-      <a href="#">EC9013</a>
-      */
+
     ?>  
     </div>
   </div> 
@@ -265,7 +247,7 @@ function showdetail(str) {
   </div>
   
   <div class="column">
-    <h2>預借情況</h2>
+    <h2>借閱歷史</h2>
     <span id="borrowed">
     
     </span>

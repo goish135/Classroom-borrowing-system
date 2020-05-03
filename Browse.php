@@ -14,7 +14,7 @@
   
   border-radius: 25px;
   
-  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  text-shadow: -1px 0 red, 0 1px red, 1px 0 red, 0 -1px red;
   font-size: 30px;  
 }
 
@@ -225,25 +225,6 @@ $last_week = date('Y-m-d',strtotime("$week_start -7 days"));
       {
           echo '<a href="status.php?class='.$row['croom_id'].'">'.$row['croom_id'].'</a>';
       }
-      /*
-      <a href="status.php?class=<?php echo "EC1005" ?>">EC1005</a>
-      <a href="#">EC1006</a>
-      <a href="#">EC1014-2</a>
-      <a href="#">EC2013-1</a>
-      <a href="#">EC2013-2</a>
-      <a href="#">EC2015</a>
-      <a href="#">EC3015</a>
-      <a href="#">EC3016</a>
-      <a href="#">EC5000</a>
-      <a href="#">EC5007</a>
-      <a href="#">EC5012</a>
-      <a href="#">EC5025</a>
-      <a href="#">EC5026</a>
-      <a href="#">EC9014</a>
-      <a href="#">EC9032-1</a>
-      <a href="#">EC9032-2</a>
-      <a href="#">EC9013</a>
-      */
     ?>  
     </div>
   </div> 
@@ -298,7 +279,7 @@ echo '</table>';
 }
 else
 {
-    echo '<div class="center"><p>Not yet Login</p></div>';
+    echo '<div class="center"><p>No Permission</p></div>';
 }    
 ?>
 

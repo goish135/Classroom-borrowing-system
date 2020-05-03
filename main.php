@@ -79,30 +79,40 @@ a:hover {
           echo '<tr>';
           echo '<td>'.$stion[$i].'</td>';
           
+          
+          
           foreach($pdo->query('select croom_id from classroom order by croom_id') as $row)
           {
+                
                 $sql = $pdo->prepare("select * from apply where return_ok=(-1) and date=? and class=?");
                 $sql->execute([$today,$row['croom_id']]);
                 $tmp = $sql->fetchAll();
                 //echo count($tmp);
                 if(count($tmp)==0)
                 {
+                    
                     echo '<td></td>';
                 }
                 else
-                {    
+                {
+                    $flag = 0;                    
                     foreach($tmp as $item)
                     {
+                        
                         //echo $item['name'];
                         $arr = json_decode($item['section'], true);
                         if(in_array($stion[$i],$arr))
                         {
                             echo '<td>'.$item['name'].'</td>';
+                            $flag = 1;
+                            break;
                         }
-                        else
-                        {
+
+                    }
+                    if($flag==0)
+                    {
                             echo '<td></td>';
-                        }
+                                                    
                     }
                 }   
              

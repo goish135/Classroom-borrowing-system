@@ -1,19 +1,186 @@
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  border: 3px solid red;
+  margin: 200px;
+  
+  border-radius: 25px;
+  
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  font-size: 30px;  
+}
+a {
+  text-decoration: none;
+  display: inline-block;
+  padding: 8px 16px;https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_next_prev#
+}
+
+a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.previous {
+  background-color: #FF8800;
+  color: white;
+}
+
+.next {
+  background-color: #FF8800;
+  color: white;
+}
+
+.round {
+  border-radius: 50%;
+}
+
+#customers {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+  
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #4CAF50;
+  color: white;
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: red;
+}
+
+.active {
+  background-color: #FFBB00;
+}
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown .dropbtn {
+  font-size: 16px;  
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+.navbar a:hover, .dropdown:hover .dropbtn {
+  background-color: red;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 6px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+  
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+  
+}
+</style>
+</head>
 <?php require 'connect.php';?>
+<ul>
+  <li><a class="active" href="Home.php">Home</a></li>
+   <div class="dropdown">
+    <button class="dropbtn">Classroom 
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+    <?php
+      foreach($pdo->query('select croom_id from classroom') as $row)
+      {
+          echo '<a href="status.php?class='.$row['croom_id'].'">'.$row['croom_id'].'</a>';
+      }
+    ?>  
+    </div>
+  </div>
+  
+  <li><a href="detail.php">教室&設備</a></li>  
+  <li><a href="Overview.php">Overview</a></li>
+  <li><a href="Browse.php">Browse</a></li>
+  <li><a href="Request.php">Request</a></li>
+  <li><a href="Register.php">Register</a></li>
+  <li><a href="Update.php">Update_Password</a></li>
+  <li><a href="admin.php">管理帳密</a></li>
+  <li><a href="login.php">Login</a></li>
+  <li><a href="logout.php">Logout</a><li>
+</ul>
+
 <?php
 session_start();
-//echo $_SESSION['staff'];
 
-if(isset($_REQUEST['Name']))
-echo '<p>',$_REQUEST['Name'],'</p>';
+//if(isset($_REQUEST['Name']))
+//echo '<p>',$_REQUEST['Name'],'</p>';
 
-if(isset($_REQUEST['date']))
-echo '<p>',$_REQUEST['date'],'</p>';
-
+//if(isset($_REQUEST['date']))
+//echo '<p>',$_REQUEST['date'],'</p>';
+echo '<div class="center">';
 if(isset($_REQUEST['section']))
 {    
-    foreach($_REQUEST['section'] as $item)
+    //foreach($_REQUEST['section'] as $item)
     {
-        echo '<p>',$item,'</p>';
+        //echo '<p>',$item,'</p>';
     }
     $count = count($_REQUEST['section']);
     $section = json_encode($_REQUEST['section']);
@@ -22,27 +189,27 @@ else
 {
     $count = 0;
     echo "節次不得為空";
+    echo "<br>";
 }    
 
-//$sql3 = $pdo->prepare('update facility set status=1 where device_id=? and device_name=?');
-if(isset($_REQUEST['device'])){
+
+if(isset($_REQUEST['device']))
+{
     $device  = json_encode($_REQUEST['device'], JSON_UNESCAPED_UNICODE);
-    foreach($_REQUEST['device'] as $item)
+    //foreach($_REQUEST['device'] as $item)
     {
-        echo '<p>',$item,'</p>';
-        //if($sql3->execute([$_REQUEST['classID'],$item]))
-        {
-            //echo '設備狀態=1';
-        }
+        //echo '<p>',$item,'</p>';
     }
 }
 else
 {
     $device = json_encode([]);
-}    
-if(isset($_REQUEST['purpose']))
-echo '<p>',$_REQUEST['purpose'],'</p>';
+}
+    
+//if(isset($_REQUEST['purpose']))
+//echo '<p>',$_REQUEST['purpose'],'</p>';
 
+/*
 switch($_REQUEST['classID'])
 {
     case 'EC1005':
@@ -117,37 +284,15 @@ switch($_REQUEST['classID'])
     echo 'EC9013';
     break;  
 }
-// ,$_REQUEST['date'],$section,$_REQUEST['purpose'],$device
-
-
-
-//echo 'device: ',$device;
-/*
-if(is_array($section))
-{
-    $section = json_encode($_REQUEST['section']);
-    $count = count($section);
-}
-else
-{
-    $count = 0;
-}
 */
-// 
-// (教室,日期),節次
 
-/*$results = $pdo->query("SELECT * FROM apply")->fetchAll(PDO::FETCH_ASSOC);
-if(count($results)) 
-{
-    // You have records.
-}*/
 $cf = 0;
 $sql2 = $pdo->prepare('select * from apply where class=? and date=? and return_ok=(-1)');
 
 $sql2->execute([$_REQUEST['classID'],$_REQUEST['date']]);
 foreach($sql2->fetchAll() as $row)
 {
-    // echo $row['name'].' '.$row['section'].' '.$row['class'].' '.$_REQUEST['date'].'<br>';
+    
     $ar = json_decode($row['section']);
     $ar2 = $_REQUEST['section'];
     foreach($ar as $item)
@@ -155,25 +300,12 @@ foreach($sql2->fetchAll() as $row)
         if(in_array($item,$ar2))
         {
             $cf = 1;
-            echo $row['name'];
-            echo $item.' conflict<br>';
+            echo '與'.$row['name'].'借的';
+            echo '第'.$item.'節 conflict<br>';
         }
     }
 }    
-//
-/*
-foreach($pdo->query('select * from apply') as $row) 
-{
-    echo '<p>';
-    echo $row['name'],":";
-    echo $row['class'],":";
-    echo $row['date'],":";
-    echo $row['section'],":";
-    echo $row['purpose'],":";
-    echo $row['device'],":";
-    echo '</p>';
-}
-*/
+
 $sql = $pdo->prepare('insert into apply (name,class,date,section,purpose,device,return_ok,login_id,email) value(?,?,?,?,?,?,-1,?,?)');
 if(empty($_REQUEST['Name']))
 {
@@ -201,9 +333,10 @@ else
     else
     {
         echo '新增失敗';
-        $error = $sql->errorInfo();
-        echo 'check'.$error.'check';
-        echo $error[2];
+        //$error = $sql->errorInfo();
+        //echo 'check'.$error.'check';
+        //echo $error[2];
     }
-}    
+}
+echo '</div>';    
 ?>
